@@ -27,6 +27,7 @@ const approve = async (
   chainId: number,
   checkIsApproved?: () => Promise<boolean>,
 ) => {
+  console.log(chainId)
   const EARejectErrorMessage =
     'Based on your wallet transaction history your application was not approved.'
 
@@ -79,11 +80,12 @@ const approveLender = async (
   },
   chainId: number,
 ) => {
+  console.log(chainId)
   const generalErrorMessage =
     'Sorry, there was an error approving your wallet as a lender.'
   try {
     const { data } = await request.post(
-      `${configUtil.getEABaseUrlV1(chainId)}/addApprovedLender`,
+      `${configUtil.getEABaseUrlV1()}/addApprovedLender`,
       payload,
     )
     if (data.statusCode >= 500) {

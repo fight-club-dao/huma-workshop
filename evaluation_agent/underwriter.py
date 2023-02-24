@@ -56,9 +56,6 @@ def underwrite(huma_pool, **kwargs):
     #         "aprInBps": 0
     #     }
     # else:
-    #     result = {
-    #             "approved": False,
-    #             "rejectionReason": ["accountTooNew"]
-    #         }
+    #     raise Exception("accountTooNew")
     
     return result  # noqa

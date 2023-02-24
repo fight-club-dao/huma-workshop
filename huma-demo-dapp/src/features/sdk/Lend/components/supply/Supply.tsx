@@ -30,6 +30,7 @@ type Props = {
   poolInfo: PoolInfoType
   isOpen: boolean
   handleClose: () => void
+  handleApprove: () => void
   handleSuccess: (blockNumber: number) => void
 }
 
@@ -41,6 +42,7 @@ export function Supply({
   poolInfo,
   isOpen,
   handleClose,
+  handleApprove,
   handleSuccess,
 }: Props): React.ReactElement | null {
   const dispatch = useAppDispatch()
@@ -92,7 +94,9 @@ export function Supply({
       disableBackdropClick
     >
       <HumaModalHeader onClose={handleCloseModal} height={0} />
-      {supplyStep === LEND_SUPPLY_STEP.ApproveLender && <CheckingEA />}
+      {supplyStep === LEND_SUPPLY_STEP.ApproveLender && (
+        <CheckingEA poolInfo={poolInfo} handleApprove={handleApprove} />
+      )}
       {supplyStep === LEND_SUPPLY_STEP.ChooseAmount && (
         <ChooseAmount
           allowance={allowance}

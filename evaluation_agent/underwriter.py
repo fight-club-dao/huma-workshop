@@ -2,6 +2,17 @@ from typing import Any, Dict, List
 import requests
 import config
 
+def fetch_signal(signal_names: List[str], adapter_inputs: Dict[str, Any]) -> Dict[str, Any]:
+   """Fetch signals from the decentralized signal portfolio service.
+   
+   For more details about DSP service, see https://github.com/00labs/huma-signals/tree/main/huma_signals
+   """
+   request = {"signal_names": signal_names, "adapter_inputs": adapter_inputs}
+   response = requests.post(config.signals_endpoint, json=request)
+   if response.status_code != 200:
+       raise ValueError(f"Error fetching signals: {response.text}")
+   return {k: v for k, v in response.json().get("signals").items() if k in signal_names}
+
 
 def underwrite(huma_pool, **kwargs):
     """

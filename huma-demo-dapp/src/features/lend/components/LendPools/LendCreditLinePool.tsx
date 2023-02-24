@@ -1,9 +1,10 @@
 import { Button } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 
 import { PoolInfo } from '../../../../components/layout/PoolInfo'
 import {
+  useCLLenderApproved,
   useCLLenderPosition,
   useCLPoolBalance,
   useCLPoolUnderlyingToken,
@@ -14,6 +15,7 @@ import { useRefresh } from '../../../../hooks/useRefresh'
 import { isEmpty } from '../../../../utils/common'
 import { downScale, formatMoney } from '../../../../utils/number'
 import { POOL_NAME, POOL_TYPE, PoolMap } from '../../../../utils/pool'
+import { LendSDK } from '../../../sdk/Lend/components/LendSDK'
 import { ConnectWalletButton } from '../../../wallet/components'
 
 type Props = {
@@ -25,11 +27,18 @@ export function LendCreditLinePool({ poolName }: Props): React.ReactElement {
   const { isLgSize, isSmSize } = useMQ()
   const poolInfo = usePoolInfo(poolName, POOL_TYPE.CreditLine)
   const { decimals } = useCLPoolUnderlyingToken(poolName)
-  const [creditLinePoolBalance] = useCLPoolBalance(poolName)
-  const [lenderPosition] = useCLLenderPosition(poolName, account)
-  const [, setActionType] = useState<'supply' | 'withdraw'>()
-  const [, setModalIsOpen] = useState(false)
-  const [, loading] = useRefresh()
+  const [creditLinePoolBalance, refreshPoolBalance] = useCLPoolBalance(poolName)
+  const [lenderPosition, refreshLenderPosition] = useCLLenderPosition(
+    poolName,
+    account,
+  )
+  const [lenderApproved, refreshLenderApproved] = useCLLenderApproved(
+    poolName,
+    account,
+  )
+  const [actionType, setActionType] = useState<'supply' | 'withdraw'>()
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [subscribe, loading] = useRefresh()
 
   const buttonWith = useMemo(() => {
     if (!isActive) {
@@ -96,15 +105,49 @@ export function LendCreditLinePool({ poolName }: Props): React.ReactElement {
     ]
   }, [isActive, lenderPosition, poolInfo?.poolUnderlyingToken.symbol])
 
+  const handleClose = () => {
+    setModalIsOpen(false)
+    setActionType(undefined)
+  }
+
+  const handleApproveSuccess = useCallback(() => {
+    refreshLenderApproved()
+  }, [refreshLenderApproved])
+
+  const handleSuccess = useCallback(
+    (blockNumber: number) => {
+      const callbackFn = () => {
+        refreshPoolBalance()
+        refreshLenderPosition()
+      }
+      subscribe(blockNumber, callbackFn)
+    },
+    [refreshLenderPosition, refreshPoolBalance, subscribe],
+  )
+
   return (
-    <PoolInfo
-      id='credit-line-pool-lend'
-      title='Credit Lines'
-      description={PoolMap.CreditLine[poolName].lendDesc}
-      items={items}
-      buttons={buttons}
-      buttonWidth={buttonWith}
-      infoOneRow={!isSmSize}
-    />
+    <>
+      <PoolInfo
+        id='credit-line-pool-lend'
+        title='Credit Lines'
+        description={PoolMap.CreditLine[poolName].lendDesc}
+        items={items}
+        buttons={buttons}
+        buttonWidth={buttonWith}
+        infoOneRow={!isSmSize}
+      />
+      {poolInfo && actionType && !isEmpty(lenderApproved) && (
+        <LendSDK
+          lenderPosition={lenderPosition}
+          lenderApproved={lenderApproved!}
+          poolInfo={poolInfo}
+          isOpen={modalIsOpen}
+          handleClose={handleClose}
+          handleApprove={handleApproveSuccess}
+          handleSuccess={handleSuccess}
+          actionType={actionType}
+        />
+      )}
+    </>
   )
 }

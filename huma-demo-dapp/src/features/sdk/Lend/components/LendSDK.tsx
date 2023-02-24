@@ -17,7 +17,6 @@ type Props = {
   poolInfo: PoolInfoType
   isOpen: boolean
   handleClose: () => void
-  handleApprove: () => void
   handleSuccess: (blockNumber: number) => void
   actionType: 'supply' | 'withdraw'
 }
@@ -28,7 +27,6 @@ export function LendSDK({
   poolInfo,
   isOpen,
   handleClose,
-  handleApprove,
   handleSuccess,
   actionType,
 }: Props): React.ReactElement | null {
@@ -63,7 +61,6 @@ export function LendSDK({
         poolInfo={poolInfo}
         isOpen={isOpen}
         handleClose={handleClose}
-        handleApprove={handleApprove}
         handleSuccess={handleSuccess}
       />
     )

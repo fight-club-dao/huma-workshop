@@ -15,7 +15,10 @@ def underwrite(huma_pool, **kwargs):
 
     borrower_wallet_address = kwargs["borrowerWalletAddress"]  # noqa
     result = {
-            "declined": True
+            "creditLimit": int(10000*10**6),
+            "intervalInDays": 30,
+            "remainingPeriods": 12,
+            "aprInBps": 0
         }
     """
     your code here

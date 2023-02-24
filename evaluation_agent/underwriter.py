@@ -58,7 +58,7 @@ def underwrite(huma_pool, **kwargs):
     # else:
     #     result = {
     #             "approved": False,
-    #             "rejectionReasons": ["accountTooNew"]
+    #             "rejectionReason": ["accountTooNew"]
     #         }
     
     return result  # noqa

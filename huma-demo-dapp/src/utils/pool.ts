@@ -68,11 +68,11 @@ export const PoolContractMap: PoolContractMapType = {
   [ChainEnum.Local]: {
     [POOL_TYPE.CreditLine]: {
       [POOL_NAME.HumaCreditLine]: {
-        basePoolConfig: '', // TODO: Replace this with the BaseCreditPoolConfig contract address
-        pool: '', // TODO: Replace this with the BaseCreditPool contract address
-        poolFeeManager: '', // TODO: Replace this with the BaseCreditPoolFeeManager contract address
+        basePoolConfig: '', // TODO: Replace this with address from locally deployed contract
+        pool: '', // TODO: Replace this with address from locally deployed contract
+        poolFeeManager: '', // TODO: Replace this with address from locally deployed contract
         poolUnderlyingToken: {
-          address: '', // TODO: Replace this with the USDC contract address
+          address: '', // TODO: Replace this with address from locally deployed contract
           symbol: 'USDC',
           decimals: 6,
           icon: UsdcIcon,
@@ -82,7 +82,7 @@ export const PoolContractMap: PoolContractMapType = {
         poolAbi: BASE_CREDIT_POOL_ABI,
         basePoolConfigAbi: BASE_POOL_CONFIG_ABI,
         HDT: {
-          address: '', // TODO: Replace this with the BaseCreditHDT contract address
+          address: '', // TODO: Replace this with address from locally deployed contract
           abi: HDT_ABI,
         },
       },

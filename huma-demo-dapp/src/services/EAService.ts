@@ -72,7 +72,41 @@ const approve = async (
   }
 }
 
+const approveLender = async (
+  payload: {
+    poolAddress: string
+    lenderWalletAddress: string
+  },
+  chainId: number,
+) => {
+  const generalErrorMessage =
+    'Sorry, there was an error approving your wallet as a lender.'
+  try {
+    const { data } = await request.post(
+      `${configUtil.getEABaseUrlV1(chainId)}/addApprovedLender`,
+      payload,
+    )
+    if (data.statusCode >= 500) {
+      throw new Error(
+        data.errorMessage ? data.errorMessage[0] : generalErrorMessage,
+      )
+    } else if (data.status) {
+      throw new Error(data.reason[0])
+    } else if (data.rejectionReason?.length) {
+      throw new Error(data.rejectionReason[0])
+    }
+    return data as ApproveInfoType
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error(error)
+    throw new Error(error.message ?? generalErrorMessage, {
+      cause: 'server error',
+    })
+  }
+}
+
 const EAService = {
   approve,
+  approveLender,
 }
 export default EAService

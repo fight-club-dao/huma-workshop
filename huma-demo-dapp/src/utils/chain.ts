@@ -31,7 +31,7 @@ export const CHAINS: {
   [chainId: number]: BasicChainInformation | ExtendedChainInformation
 } = {
   [ChainEnum.Local]: {
-    urls: [],
+    urls: ['http://localhost:8545'],
     name: 'Local Hardhat',
     nativeCurrency: ETH,
     icon: EthereumIcon,

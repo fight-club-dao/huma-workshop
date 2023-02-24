@@ -32,7 +32,7 @@ const approve = async (
 
   try {
     const { data } = await request.post(
-      `${configUtil.getEAVerseUrl()}/underwriter/underwrite`,
+      `${configUtil.getEAVerseUrl()}/underwrite`,
       payload,
     )
     const applicationRejectedError = new Error(EARejectErrorMessage, {

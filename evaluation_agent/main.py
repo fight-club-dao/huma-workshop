@@ -1,7 +1,10 @@
+import os
+
 import traceback
 from typing import Optional
 
 import uvicorn
+from mangum import Mangum
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -74,4 +77,7 @@ async def post_approval(request: Request, approve_param: ApproveParam):
         )
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True, proxy_headers=True)
+    if os.environ.get("IS_AWS"):
+        handler = Mangum(app)
+    else:
+        uvicorn.run("main:app", reload=True, proxy_headers=True)

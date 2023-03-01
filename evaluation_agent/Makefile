@@ -1,5 +1,5 @@
 clean:
-	rm -rf build
+	rm -rf build evaluation_agent.zip
 
 build-lambda: clean
 	mkdir -p build

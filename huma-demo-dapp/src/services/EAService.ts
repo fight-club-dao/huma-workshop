@@ -84,19 +84,31 @@ const approveLender = async (
   const generalErrorMessage =
     'Sorry, there was an error approving your wallet as a lender.'
   try {
-    const { data } = await request.post(
-      `${configUtil.getEABaseUrlV1()}/addApprovedLender`,
-      payload,
-    )
-    if (data.statusCode >= 500) {
-      throw new Error(
-        data.errorMessage ? data.errorMessage[0] : generalErrorMessage,
-      )
-    } else if (data.status) {
-      throw new Error(data.reason[0])
-    } else if (data.rejectionReason?.length) {
-      throw new Error(data.rejectionReason[0])
-    }
+  //   const { data } = await request.post(
+  //     `${configUtil.getEABaseUrlV1()}/addApprovedLender`,
+  //     payload,
+  //   )
+  //   if (data.statusCode >= 500) {
+  //     throw new Error(
+  //       data.errorMessage ? data.errorMessage[0] : generalErrorMessage,
+  //     )
+  //   } else if (data.status) {
+  //     throw new Error(data.reason[0])
+  //   } else if (data.rejectionReason?.length) {
+  //     throw new Error(data.rejectionReason[0])
+  //   }
+    const data = {
+        aprInBps: 0,
+        creditLimit: 0,
+        intervalInDays: 60,
+        receivableAmount: 100,
+        receivableAsset: "USDC",
+        receivableParam: 1,
+        remainingPeriods: 0,
+        tokenDecimal: 1,
+        tokenName: "USDC",
+        tokenSymbol: "USDC",
+    };
     return data as ApproveInfoType
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

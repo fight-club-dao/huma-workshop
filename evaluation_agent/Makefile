@@ -4,5 +4,6 @@ clean:
 build-lambda: clean
 	mkdir -p build
 	cp -r *.py build
-	pip install -r requirements.txt -t build
+	cp -r abi build
+	pip install -r requirements.txt cython -t build
 	cd build && zip -r ../evaluation_agent.zip .

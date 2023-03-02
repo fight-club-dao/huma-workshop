@@ -76,8 +76,6 @@ async def post_approval(request: Request, approve_param: ApproveParam):
             }
         )
 
+handler = Mangum(app)
 if __name__ == "__main__":
-    if os.environ.get("IS_AWS"):
-        handler = Mangum(app)
-    else:
-        uvicorn.run("main:app", reload=True, proxy_headers=True)
+    uvicorn.run("main:app", reload=True, proxy_headers=True)

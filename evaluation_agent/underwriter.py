@@ -8,7 +8,9 @@ def fetch_signal(signal_names: List[str], adapter_inputs: Dict[str, Any]) -> Dic
    For more details about DSP service, see https://github.com/00labs/huma-signals/tree/main/huma_signals
    """
    request = {"signal_names": signal_names, "adapter_inputs": adapter_inputs}
+   print(request)
    response = requests.post(config.signals_endpoint, json=request)
+   print(response.text)
    if response.status_code != 200:
        raise ValueError(f"Error fetching signals: {response.text}")
    return {k: v for k, v in response.json().get("signals").items() if k in signal_names}
@@ -25,7 +27,7 @@ def underwrite(huma_pool, **kwargs):
     """
 
     borrower_wallet_address = kwargs["borrowerWalletAddress"]  # noqa
-    
+
     # to be removed
     result = {
             "creditLimit": int(10000*10**6),
@@ -43,7 +45,7 @@ def underwrite(huma_pool, **kwargs):
     adapter_inputs = {
         "borrower_wallet_address": borrower_wallet_address,
         "contract_address": config.borrower_whitelist_contract,
-        "chain": "LOCAL",
+        "chain": "GOERLI",
     }
 
     signals = fetch_signal(signal_names, adapter_inputs)
@@ -55,6 +57,6 @@ def underwrite(huma_pool, **kwargs):
             "aprInBps": 0
         }
     else:
-        raise Exception("accountTooNew")
+        raise Exception("account not allowed")
     
     return result  # noqa

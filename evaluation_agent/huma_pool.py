@@ -11,7 +11,7 @@ class HumaPool:
         self.pool_address = Web3.toChecksumAddress(pool_address)
         with open("abi/BaseCreditPool.json") as f:
             self.abi = json.load(f)
-        self.w3 = Web3(HTTPProvider("http://localhost:8545"))
+        self.w3 = Web3(HTTPProvider(config.provider_url))
         self.w3.middleware_onion.inject(geth_poa_middleware, layer=0)
         self.huma_pool_contract = self.w3.eth.contract(address=self.pool_address, abi=self.abi)
         self.pool_config_address = Web3.toChecksumAddress(self.get_pool_config_address())

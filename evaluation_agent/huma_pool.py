@@ -21,14 +21,19 @@ class HumaPool:
         self.summary = self.get_pool_summary()
         
     def post_approved_request(self, **approve_result):
+        print('executing transaction')
         nonce = self.w3.eth.get_transaction_count(self.signer, "pending")
+        print('got transaction')
         post_txn = self.huma_pool_contract.functions.approveCredit(**approve_result).buildTransaction(
             {"from": self.signer, "nonce": nonce}
         )
+        print('got transaction again', post_txn)
 
         signed_txn = self.w3.eth.account.sign_transaction(post_txn, private_key=config.ea_key)
+        print('sending transaction', signed_txn)
         txn_hash = self.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
         txn_receipt = self.w3.eth.wait_for_transaction_receipt(txn_hash)
+        print(txn_receipt)
         if txn_receipt["status"]:
             return
         else:

@@ -1,8 +1,8 @@
 import os
 
-ea = os.environ.get('EA', "0xA057173A66f90a15D0295e5502752140362539D3")
-ea_key = os.environ.get('EA_KEY', "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a")
-borrower_whitelist_contract = os.environ.get('BORROWER_WHITE_LIST_CONTRACT_ADDR', "0x0B2813424E99f4Bd58d0545509EAfBb8039F570d")
+ea = os.environ.get('EA', "0xb08a809428A69218B35647d79d90F90DdF295881")
+ea_key = os.environ.get('EA_KEY')
+borrower_whitelist_contract = os.environ.get('BORROWER_WHITE_LIST_CONTRACT_ADDR', "0x6842393062367bbBeAa61185836D18d50a50A0bf")
 signals_endpoint = os.environ.get('SIGNALS_ENDPOINT', "http://127.0.0.1:8001/fetch")  # "https://dev.goerli.signals.huma.finance/fetch"
 provider_url = os.environ.get('PROVIDER_URL', 'https://eth-goerli.g.alchemy.com/v2/ugw2EcIzTw9sG99pp46rSa0NBZTHcwip')  # , "http://127.0.0.1:8001/fetch")  # "https://dev.goerli.signals.huma.finance/fetch"
 

@@ -23,6 +23,7 @@ interface ExtendedChainInformation extends BasicChainInformation {
 
 export enum ChainEnum {
   Local = 31337,
+  Goerli = 5,
 }
 
 export const SupportedChainIds = [ChainEnum.Local]
@@ -33,6 +34,13 @@ export const CHAINS: {
   [ChainEnum.Local]: {
     urls: ['http://localhost:8545'],
     name: 'Local Hardhat',
+    nativeCurrency: ETH,
+    icon: EthereumIcon,
+    wait: 1,
+  },
+  [ChainEnum.Goerli]: {
+    urls: ['https://eth-goerli.g.alchemy.com/v2/ugw2EcIzTw9sG99pp46rSa0NBZTHcwip'],
+    name: 'Goerli',
     nativeCurrency: ETH,
     icon: EthereumIcon,
     wait: 1,

@@ -65,14 +65,14 @@ export const PoolMap: PoolMapType = {
 }
 
 export const PoolContractMap: PoolContractMapType = {
-  [ChainEnum.Local]: {
+  [ChainEnum.Goerli]: {
     [POOL_TYPE.CreditLine]: {
       [POOL_NAME.HumaCreditLine]: {
-        basePoolConfig: '', // TODO: Replace this with the BaseCreditPoolConfig contract address
-        pool: '', // TODO: Replace this with the BaseCreditPool contract address
-        poolFeeManager: '', // TODO: Replace this with the BaseCreditPoolFeeManager contract address
+        basePoolConfig: '0x55a4Bf5394DB361e66FCb097BBcac89D415941E8', // TODO: Replace this with the BaseCreditPoolConfig contract address
+        pool: '0xE42C3ac195DE958B38c323DD14a47894AB7c422c', // TODO: Replace this with the BaseCreditPool contract address
+        poolFeeManager: '0x107eB0e06c87D50B69E4a6229bc9Ad31f14a2be5', // TODO: Replace this with the BaseCreditPoolFeeManager contract address
         poolUnderlyingToken: {
-          address: '', // TODO: Replace this with the USDC contract address
+          address: '0x0d95acdFE7f4e3c2514A0379A3c461719697c72C', // TODO: Replace this with the USDC contract address
           symbol: 'USDC',
           decimals: 6,
           icon: UsdcIcon,
@@ -82,7 +82,7 @@ export const PoolContractMap: PoolContractMapType = {
         poolAbi: BASE_CREDIT_POOL_ABI,
         basePoolConfigAbi: BASE_POOL_CONFIG_ABI,
         HDT: {
-          address: '', // TODO: Replace this with the BaseCreditHDT contract address
+          address: '0x2770769992268638370fd3FF43b84f245eb6a288', // TODO: Replace this with the BaseCreditHDT contract address
           abi: HDT_ABI,
         },
       },

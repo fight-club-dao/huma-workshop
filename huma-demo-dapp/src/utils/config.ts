@@ -1,5 +1,5 @@
-const getEAVerseUrl = () => 'http://localhost:8000'
-const getEABaseUrlV1 = () => 'http://localhost:8000'
+const getEAVerseUrl = () => 'https://y0pf76sz1e.execute-api.us-east-2.amazonaws.com/prod'
+const getEABaseUrlV1 = () => 'https://y0pf76sz1e.execute-api.us-east-2.amazonaws.com/prod'
 
 const configUtil = {
   getEAVerseUrl,

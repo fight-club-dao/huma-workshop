@@ -69,6 +69,8 @@ async def post_approval(request: Request, approve_param: ApproveParam):
         json_compatible_result = jsonable_encoder(result)
         return JSONResponse(content=json_compatible_result)
     except Exception as e:
+        print(e)
+        # raise e
         return JSONResponse(
             content={
                 "statusCode": 500,

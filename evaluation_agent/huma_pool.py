@@ -33,7 +33,7 @@ class HumaPool:
         print('sending transaction', signed_txn)
         txn_hash = self.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
         txn_receipt = self.w3.eth.wait_for_transaction_receipt(txn_hash)
-        print(txn_receipt)
+        print('txn_receipt', txn_receipt)
         if txn_receipt["status"]:
             return
         else:
